@@ -97,6 +97,16 @@ PLATFORM_SECURITY_PATCH := 2022-04-01
 VENDOR_SECURITY_PATCH := 2022-04-01
 PLATFORM_VERSION := 12.0.0
 
+# Enable support for building and handling EROFS filesystem images
+TARGET_USERIMAGES_USE_EROFS := true
+
+# Include EROFS filesystem tools and utilities for partition checking/maintenance
+TW_INCLUDE_FS_EXTENSIONS := true
+PRODUCT_PACKAGES += \
+    erofs-utils \
+    fsck.erofs \
+    dump.erofs
+
 # TWRP & OrangeFox Configuration
 TW_THEME := portrait_hdpi
 TW_EXTRA_LANGUAGES := true
