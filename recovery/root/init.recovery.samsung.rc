@@ -1,0 +1,30 @@
+on fs
+    export ANDROID_ROOT /system_root
+    wait /dev/block/platform/13500000.dwmmc0
+    symlink /dev/block/platform/13500000.dwmmc0 /dev/block/bootdevice
+    start hwservicemanager
+
+on init
+    write /proc/sys/kernel/hung_task_timeout_secs 0
+    rm /efs
+    mkdir /efs 0775 system system
+    mkdir /sec_efs 0775 system system
+
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 04e8
+    write /sys/class/android_usb/android0/idProduct 6860
+    write /sys/class/android_usb/android0/f_ffs/aliases adb
+    write /sys/class/android_usb/android0/functions adb
+    write /sys/class/android_usb/android0/enable 1
+
+on boot
+    write /sys/class/backlight/panel/brightness 100
+    setprop sys.usb.config adb,mtp
+    setprop sys.usb.state adb,mtp
+
+service hwservicemanager /system/bin/hwservicemanager
+    user root
+    group root
+    disabled
+    onrestart setprop hwservicemanager.ready false
+    seclabel u:r:recovery:s0
