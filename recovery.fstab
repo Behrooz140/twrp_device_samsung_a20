@@ -1,36 +1,27 @@
-# Android fstab file for Samsung Galaxy A20 (Exynos 7884) 
-# <mount_point>      <fstype>    <device>                                                    <flags> 
+# Android fstab file.
+# The filesystem that contains the filesystem checker binary (typically /system) cannot
+# specify MF_CHECK, and must come before any filesystems that do specify MF_CHECK
 
-/boot               emmc        /dev/block/platform/13500000.dwmmc0/by-name/boot            flags=display="Boot";backup=1;flashimg=1 
-/recovery           emmc        /dev/block/platform/13500000.dwmmc0/by-name/recovery        flags=display="Recovery";backup=1;flashimg=1 
+# Point             FS      1st Device 2nd Device                                     Flags
+/boot               emmc    /dev/block/platform/13500000.dwmmc0/by-name/boot          flags=display="Kernel Image";backup=1;flashimg=1
+/dtbo               emmc    /dev/block/platform/13500000.dwmmc0/by-name/dtbo          flags=display="DTBO Image";backup=1;flashimg=1
+/recovery           emmc    /dev/block/platform/13500000.dwmmc0/by-name/recovery      flags=display="Recovery Image";backup=1;flashimg=1
+/product_image      emmc    /dev/block/platform/13500000.dwmmc0/by-name/product       flags=display="Product Image (CSC)";backup=1;flashimg=1
+/omr_image          emmc    /dev/block/platform/13500000.dwmmc0/by-name/omr           flags=display="OMR Image";backup=1;flashimg=1
+/system_image       emmc    /dev/block/platform/13500000.dwmmc0/by-name/system        flags=display="System Image";backup=1;flashimg=1
+/vendor_image       emmc    /dev/block/platform/13500000.dwmmc0/by-name/vendor        flags=display="Vendor Image";backup=1;flashimg=1
 
-# System Partitions (Auto-detect ext4 & erofs)
-/system             auto        /dev/block/platform/13500000.dwmmc0/by-name/system          flags=display="System";backup=1;wipeingui
-/system_image       emmc        /dev/block/platform/13500000.dwmmc0/by-name/system          flags=display="System Image";backup=1;flashimg=1 
+# System and Vendor (and Product) Points
+/system_root        ext4    /dev/block/platform/13500000.dwmmc0/by-name/system        flags=display="System";backup=1;wipeingui
+/omr                ext4    /dev/block/platform/13500000.dwmmc0/by-name/omr           flags=display="Product";backup=1;wipeingui
+/product            ext4    /dev/block/platform/13500000.dwmmc0/by-name/product       flags=display="Product";backup=1;wipeingui
+/vendor             ext4    /dev/block/platform/13500000.dwmmc0/by-name/vendor        flags=display="Vendor";backup=1;wipeingui
 
-/vendor             auto        /dev/block/platform/13500000.dwmmc0/by-name/vendor          flags=display="Vendor";backup=1;wipeingui
-/vendor_image       emmc        /dev/block/platform/13500000.dwmmc0/by-name/vendor          flags=display="Vendor Image";backup=1;flashimg=1 
+# Cache and ETC Points
+/cache              ext4    /dev/block/platform/13500000.dwmmc0/by-name/cache         flags=display="Cache";backup=1;wipeingui
+/data               ext4    /dev/block/platform/13500000.dwmmc0/by-name/userdata      flags=display="Data";encryptable=footer;length=-20480
+/efs                ext4    /dev/block/platform/13500000.dwmmc0/by-name/efs           flags=display="EFS";backup=1
 
-/product            auto        /dev/block/platform/13500000.dwmmc0/by-name/product         flags=display="Product";backup=1
-/product_image      emmc        /dev/block/platform/13500000.dwmmc0/by-name/product         flags=display="Product Image";backup=1;flashimg=1 
-
-/optics             auto        /dev/block/platform/13500000.dwmmc0/by-name/optics          flags=display="Optics";backup=1 
-/prism              auto        /dev/block/platform/13500000.dwmmc0/by-name/prism           flags=display="Prism";backup=1 
-
-# Data & Cache
-/data               ext4        /dev/block/platform/13500000.dwmmc0/by-name/userdata        flags=display="Data";backup=1;settingsstorage;encryptable=footer 
-/cache              ext4        /dev/block/platform/13500000.dwmmc0/by-name/cache           flags=display="Cache";wipeingui 
-
-# System Details
-/efs                ext4        /dev/block/platform/13500000.dwmmc0/by-name/sec_efs         flags=display="EFS";backup=1 
-/sec_efs            ext4        /dev/block/platform/13500000.dwmmc0/by-name/sec_efs         flags=display="Sec EFS";backup=1;subpartitionof=/efs 
-/carrier            ext4        /dev/block/platform/13500000.dwmmc0/by-name/carrier         flags=display="Carrier" 
-/preload            ext4        /dev/block/platform/13500000.dwmmc0/by-name/hidden          flags=display="Preload" 
-/modem              emmc        /dev/block/platform/13500000.dwmmc0/by-name/radio           flags=display="Modem";backup=1 
-/misc               emmc        /dev/block/platform/13500000.dwmmc0/by-name/misc            flags=display="Misc" 
-/dtb                emmc        /dev/block/platform/13500000.dwmmc0/by-name/dtb             flags=display="DTB";backup=1 
-/dtbo               emmc        /dev/block/platform/13500000.dwmmc0/by-name/dtbo            flags=display="DTBO";backup=1 
-
-# External storage (Auto-detect FAT32 / exFAT)
-/external_sd        auto        /dev/block/mmcblk1p1 /dev/block/mmcblk1                     flags=display="Micro SDcard";storage;wipeingui;removable
-/usb-otg            auto        /dev/block/sda1 /dev/block/sda                             flags=display="USB-OTG";storage;wipeingui;removable
+# SDC and OTG Points
+/external_sd        auto    /dev/block/mmcblk1p1 /dev/block/mmcblk1                   flags=fsflags=utf8;display="Micro SDcard";storage;wipeingui;removable
+/usb-otg            auto    /dev/block/sda1      /dev/block/sda                       flags=display="USB-OTG";storage;wipeingui;removable
