@@ -1,7 +1,9 @@
 on fs
     export ANDROID_ROOT /system_root
-    wait /dev/block/platform/13500000.dwmmc0
+    wait /dev/block/platform/13500000.dwmmc0/by-name
     symlink /dev/block/platform/13500000.dwmmc0 /dev/block/bootdevice
+    symlink /dev/block/platform/13500000.dwmmc0/by-name /dev/block/by-name
+    symlink /dev/block/platform/13500000.dwmmc0/by-name /dev/block/bootdevice/by-name
     start hwservicemanager
 
 on init
