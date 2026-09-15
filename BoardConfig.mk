@@ -131,3 +131,9 @@ TW_EXTERNAL_STORAGE_PATH := "/external_sd"
 TW_EXTERNAL_STORAGE_MOUNT_POINT := "external_sd"
 RECOVERY_SDCARD_ON_DATA := true
 
+# Include device directory for custom init.rc scripts
+TARGET_RECOVERY_DEVICE_DIRS += device/samsung/a20
+
+# Include exFAT support flags for storage auto-detection
+TW_INCLUDE_EXFAT := true
+
