@@ -25,9 +25,4 @@ PRODUCT_BUILD_PROP_OVERRIDES += \
 
 BUILD_FINGERPRINT := samsung/a20dd/a20:11/RP1A.200720.012/A205FXXSBCWC4:user/release-keys
 
-# Add EROFS tools to device makefile
-PRODUCT_PACKAGES += \
-    erofs-utils \
-    fsck.erofs \
-    dump.erofs
 
