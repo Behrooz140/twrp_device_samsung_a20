@@ -33,12 +33,6 @@ TARGET_BOOTLOADER_BOARD_NAME := exynos7884B
 TARGET_NO_BOOTLOADER := true
 TARGET_NO_RADIOIMAGE := true
 
-# Display
-TARGET_SCREEN_DENSITY := 280
-TARGET_RECOVERY_PIXEL_FORMAT := "ABGR_8888"
-TW_Y_OFFSET := 60
-TW_H_OFFSET := -60
-
 # Kernel
 BOARD_BOOTIMG_HEADER_VERSION := 1
 BOARD_KERNEL_BASE := 0x10000000
@@ -98,41 +92,34 @@ PLATFORM_SECURITY_PATCH := 2022-04-01
 VENDOR_SECURITY_PATCH := 2022-04-01
 PLATFORM_VERSION := 12.0.0
 
-# Enable support for building and handling EROFS filesystem images
-TARGET_USERIMAGES_USE_EROFS := true
-
-# EROFS Utilities
-TW_INCLUDE_FS_EXTENSIONS := true
-
 # TWRP & OrangeFox Configuration
+TW_DEVICE_VERSION := Samsung Galaxy A20
 TW_THEME := portrait_hdpi
-TW_EXTRA_LANGUAGES := true
-TW_SCREEN_BLANK_ON_BOOT := true
-TW_INPUT_BLACKLIST := "hbtp_vm"
-TW_USE_TOOLBOX := true
-TW_BRIGHTNESS_PATH := /sys/class/backlight/panel/brightness
+TARGET_RECOVERY_PIXEL_FORMAT := "ABGR_8888"
+TW_BRIGHTNESS_PATH := "/sys/class/backlight/panel/brightness"
 TW_MAX_BRIGHTNESS := 255
-TW_DEFAULT_BRIGHTNESS := 96
-
-# Advanced Features & Fixes
-TW_INCLUDE_RESETPROP := true
+TW_DEFAULT_BRIGHTNESS := 150
+TW_SKIP_COMPATIBILITY_CHECK := true
+TW_Y_OFFSET := 60
+TW_H_OFFSET := -60
 TW_INCLUDE_REPACKTOOLS := true
-TW_INCLUDE_FASTBOOTD := true
-TW_INCLUDE_NTFS_3G := true
-TW_NO_REBOOT_BOOTLOADER := true
-TW_HAS_DOWNLOAD_MODE := true
+TW_INCLUDE_RESETPROP := true
 TW_EXCLUDE_DEFAULT_USB_INIT := true
 TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/kernel/config/usb_gadget/g1/functions/mass_storage.0/lun.%d/file"
-
-# Storage Flags
+TW_NO_REBOOT_BOOTLOADER := true
+TW_HAS_DOWNLOAD_MODE := true
+TW_INCLUDE_NTFS_3G := true
+TW_USE_NEW_MINADBD := true
+TW_NO_LEGACY_PROPS := true
+TW_USE_TOOLBOX := true
 TW_INTERNAL_STORAGE_PATH := "/data/media/0"
 TW_INTERNAL_STORAGE_MOUNT_POINT := "data"
 TW_EXTERNAL_STORAGE_PATH := "/external_sd"
 TW_EXTERNAL_STORAGE_MOUNT_POINT := "external_sd"
+TW_Y_OFFSET := 60
+TW_H_OFFSET := -60
+TARGET_SCREEN_DENSITY := 280
 RECOVERY_SDCARD_ON_DATA := true
-
-# Include device directory for custom init.rc scripts
-TARGET_RECOVERY_DEVICE_DIRS += device/samsung/a20
 
 # Include exFAT support flags for storage auto-detection
 TW_INCLUDE_EXFAT := true
