@@ -103,12 +103,16 @@ TW_Y_OFFSET := 60
 TW_H_OFFSET := -60
 TARGET_SCREEN_DENSITY := 280
 
-# TWRP & OrangeFox USB / MTP Fixes (حل مشکل عدم شناسایی MTP و USB Gadget)
+# USB / MTP / ConfigFS Configuration for Exynos 7884
 TW_EXCLUDE_DEFAULT_USB_INIT := false
 TW_HAS_MTP := true
 TW_MTP_DEVICE_FILE := "/dev/mtp_usb"
-TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/class/android_usb/android0/f_mass_storage/lun/file"
-TW_EXPLICIT_BUS_SCALING := true
+
+# مسیرهای دقیق ConfigFS کرنل سامسونگ
+TW_CONFIGFS_BACKEND_PATH := "/sys/kernel/config/usb_gadget/g1"
+TW_USB_CONFIGFS_NATIVE := true
+TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/kernel/config/usb_gadget/g1/functions/mass_storage.0/lun.%d/file"
+
 
 # TWRP Features & Tools
 TW_SKIP_COMPATIBILITY_CHECK := true
