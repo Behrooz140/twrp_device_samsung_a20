@@ -25,6 +25,13 @@ TARGET_2ND_CPU_ABI2 := armeabi
 TARGET_2ND_CPU_VARIANT := generic
 TARGET_2ND_CPU_VARIANT_RUNTIME := cortex-a53
 
+# Binder
+TARGET_USES_64_BIT_BINDER := true
+
+TARGET_CPU_SMP := true
+ENABLE_CPUSETS := true
+ENABLE_SCHEDBOOST := true
+
 # APEX
 OVERRIDE_TARGET_FLATTEN_APEX := true
 
@@ -79,6 +86,13 @@ TARGET_USERIMAGES_USE_F2FS := true
 BOARD_HAS_NO_SELECT_BUTTON := true
 BOARD_SUPPRESS_SECURE_ERASE := true
 
+# Fastbootd
+TW_INCLUDE_FASTBOOTD := true
+
+# Workaround for error copying vendor files to recovery ramdisk
+BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
+TARGET_COPY_OUT_VENDOR := vendor
+
 # Verified Boot
 BOARD_AVB_ENABLE := true
 BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 3
@@ -87,46 +101,40 @@ BOARD_AVB_RECOVERY_ALGORITHM := SHA256_RSA4096
 BOARD_AVB_RECOVERY_ROLLBACK_INDEX := 1
 BOARD_AVB_RECOVERY_ROLLBACK_INDEX_LOCATION := 1
 
-# Hack: prevent anti rollback
-PLATFORM_SECURITY_PATCH := 2022-04-01
-VENDOR_SECURITY_PATCH := 2022-04-01
-PLATFORM_VERSION := 12.0.0
+# Crypto
+PLATFORM_SECURITY_PATCH := 2099-12-31
+VENDOR_SECURITY_PATCH := 2099-12-31
+PLATFORM_VERSION := 16.1.0
+TW_INCLUDE_CRYPTO := false
+TW_INCLUDE_CRYPTO_FBE := false
 
-# TWRP & OrangeFox Display Configuration
-TW_DEVICE_VERSION := Samsung Galaxy A20
-TW_THEME := portrait_hdpi
-TARGET_RECOVERY_PIXEL_FORMAT := "ABGR_8888"
-TW_BRIGHTNESS_PATH := "/sys/class/backlight/panel/brightness"
-TW_MAX_BRIGHTNESS := 255
-TW_DEFAULT_BRIGHTNESS := 150
-TW_Y_OFFSET := 60
-TW_H_OFFSET := -60
-TARGET_SCREEN_DENSITY := 280
 
 # USB / MTP / ConfigFS Configuration for Exynos 7884
 TW_EXCLUDE_DEFAULT_USB_INIT := false
 TW_HAS_MTP := true
 TW_MTP_DEVICE_FILE := "/dev/mtp_usb"
 
-# مسیرهای دقیق ConfigFS کرنل سامسونگ
-TW_CONFIGFS_BACKEND_PATH := "/sys/kernel/config/usb_gadget/g1"
-TW_USB_CONFIGFS_NATIVE := true
-TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/kernel/config/usb_gadget/g1/functions/mass_storage.0/lun.%d/file"
 
-
-# TWRP Features & Tools
+# TWRP specific build flags
+TW_DEVICE_VERSION := Samsung Galaxy A20
+TW_THEME := portrait_hdpi
+TARGET_RECOVERY_PIXEL_FORMAT := "ABGR_8888"
+TW_BRIGHTNESS_PATH := "/sys/class/backlight/panel/brightness"
+TW_MAX_BRIGHTNESS := 255
+TW_DEFAULT_BRIGHTNESS := 150
 TW_SKIP_COMPATIBILITY_CHECK := true
+TW_Y_OFFSET := 60
+TW_H_OFFSET := -60
 TW_INCLUDE_REPACKTOOLS := true
 TW_INCLUDE_RESETPROP := true
+TW_EXCLUDE_DEFAULT_USB_INIT := true
+TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/kernel/config/usb_gadget/g1/functions/mass_storage.0/lun.%d/file"
 TW_NO_REBOOT_BOOTLOADER := true
 TW_HAS_DOWNLOAD_MODE := true
 TW_INCLUDE_NTFS_3G := true
-TW_INCLUDE_EXFAT := true
 TW_USE_NEW_MINADBD := true
 TW_NO_LEGACY_PROPS := true
 TW_USE_TOOLBOX := true
-
-# Storage Configuration
 TW_INTERNAL_STORAGE_PATH := "/data/media/0"
 TW_INTERNAL_STORAGE_MOUNT_POINT := "data"
 TW_EXTERNAL_STORAGE_PATH := "/external_sd"
