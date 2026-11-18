@@ -72,7 +72,7 @@ jobs:
       - name: Build recovery image
         working-directory: /home/runner/twrp
         run: |
-          set -euo pipefail
+          set -eo pipefail
           export ALLOW_MISSING_DEPENDENCIES=true
           export LC_ALL=C
           source build/envsetup.sh
