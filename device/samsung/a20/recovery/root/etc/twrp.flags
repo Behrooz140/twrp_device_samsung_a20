@@ -1,0 +1,4 @@
+# Extra TWRP flags for Samsung Galaxy A20 (SM-A205F)
+#
+# The main fstab is device/samsung/a20/recovery.fstab. Keep this file for
+# additional mount points / aliases that are easier to maintain separately.
