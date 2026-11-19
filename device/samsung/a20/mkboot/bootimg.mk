@@ -17,6 +17,12 @@
 MKBOOTIMG_PY := $(DEVICE_PATH)/mkboot/mkbootimg.py
 SEANDROIDENFORCE_MARKER := SEANDROIDENFORCE
 
+# BOARD_RAMDISK_USE_LZMA selects the "alone" LZMA stream format that the A20
+# 4.4 kernel can decompress. Use preset 9 (64 MiB dictionary) exactly like the
+# known-good TWRP 3.7.x recovery for this device; that keeps the compressed
+# recovery ramdisk at ~13 MiB instead of ~20 MiB, which the bootloader rejects.
+COMPRESSION_COMMAND := $(LZMA) -9 -f -c
+
 # --- boot image (not used by "mka recoveryimage", kept for completeness) ----
 $(INSTALLED_BOOTIMAGE_TARGET): $(MKBOOTIMG_PY) $(INTERNAL_BOOTIMAGE_FILES)
 	$(call pretty,"Target boot image: $@")

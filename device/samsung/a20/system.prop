@@ -1,0 +1,9 @@
+# Runtime properties for the Samsung Galaxy A20 (SM-A205F) recovery.
+# These must be a real file: values with spaces get split across lines when
+# declared through PRODUCT_PROPERTY_OVERRIDES.
+ro.display.series=Samsung Galaxy A20
+ro.product.board=exynos7884B
+ro.board.platform=exynos7884B
+ro.hardware=exynos7884B
+sys.usb.controller=13600000.dwc3
+ro.boot.bootdevice=13500000.dwmmc0

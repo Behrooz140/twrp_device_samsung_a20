@@ -89,7 +89,16 @@ BOARD_BOOT_HEADER_VERSION := 1
 
 BOARD_KERNEL_CMDLINE := androidboot.hardware=exynos7884B androidboot.selinux=permissive
 
-# Prebuilt stock kernel and stock (trimmed) recovery DTBO
+# The A20 bootloader/kernel refuses a recovery ramdisk whose compressed image is
+# larger than ~16 MiB (a 20 MiB gzip ramdisk reboots at the Samsung logo).
+# LZMA ("alone" stream format, which the 4.4 kernel can decompress) keeps the
+# ramdisk at ~13 MiB. This must stay enabled.
+BOARD_RAMDISK_USE_LZMA := true
+BOARD_RECOVERYIMAGE_MAX_RAMDISK_SIZE := 16000000
+
+# Known-good kernel/DTBO pair from the working TWRP 3.7.x recovery for a20.
+# (The stock kernel/DTBO from the firmware are NOT used: this pair is required
+# for the display/panel to come up in recovery.)
 TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/Image
 BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilt/dtbo.img
 BOARD_INCLUDE_RECOVERY_DTBO := true

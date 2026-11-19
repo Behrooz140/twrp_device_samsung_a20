@@ -1,0 +1,36 @@
+# TWRP fstab (v1 syntax) for Samsung Galaxy A20 (SM-A205F)
+#
+# <mount point>  <fstype>  <device>  [<device2>|<length>|<flags>]
+#
+# Partition names are the ones exported by the stock recovery of
+# A205FXXSBCWC4 (/dev/block/by-name/*).
+
+# --- mountable file systems -------------------------------------------------
+/system_root     ext4   /dev/block/by-name/system      flags=display="System";backup=1;wipeingui
+/vendor          ext4   /dev/block/by-name/vendor      flags=display="Vendor";backup=1;wipeingui
+/product         ext4   /dev/block/by-name/product     flags=display="Product";backup=1;wipeingui
+/cache           ext4   /dev/block/by-name/cache       flags=display="Cache";backup=0;wipeingui
+/data            ext4   /dev/block/by-name/userdata    flags=display="Data";backup=1;wipeingui;length=-20480
+/efs             ext4   /dev/block/by-name/sec_efs     flags=display="EFS";backup=1
+/preload         ext4   /dev/block/by-name/hidden      flags=display="Preload";backup=1
+/cpefs           ext4   /dev/block/by-name/cpefs       flags=display="CPEFS";backup=1
+/optics          ext4   /dev/block/by-name/optics      flags=display="Optics";backup=1
+/prism           ext4   /dev/block/by-name/prism       flags=display="Prism";backup=1
+/keydata         ext4   /dev/block/by-name/keydata     flags=display="Keydata";backup=0
+/keyrefuge       ext4   /dev/block/by-name/keyrefuge   flags=display="Keyrefuge";backup=0
+
+# --- raw partitions (image backup / flash) ----------------------------------
+/boot            emmc   /dev/block/by-name/boot        flags=display="Boot";backup=1;flashimg
+/recovery        emmc   /dev/block/by-name/recovery    flags=display="Recovery";backup=1;flashimg
+/modem           emmc   /dev/block/by-name/radio       flags=display="Modem";backup=0;flashimg
+/modem2          emmc   /dev/block/by-name/radio2      flags=display="Modem2";backup=0;flashimg
+/misc            emmc   /dev/block/by-name/misc        flags=display="Misc";backup=0;flashimg
+/dtb             emmc   /dev/block/by-name/dtb         flags=display="DTB";backup=0;flashimg
+/dtbo            emmc   /dev/block/by-name/dtbo        flags=display="DTBO";backup=0;flashimg
+/vbmeta_samsung  emmc   /dev/block/by-name/vbmeta_samsung flags=display="VBMeta (Samsung)";backup=0;flashimg
+/vbmeta_system   emmc   /dev/block/by-name/vbmeta_system  flags=display="VBMeta (System)";backup=0;flashimg
+/cp_debug        emmc   /dev/block/by-name/cp_debug    flags=display="CP Debug";backup=0;flashimg
+
+# --- removable storage ------------------------------------------------------
+/external_sd     vfat   /dev/block/mmcblk1p1  /dev/block/mmcblk1  flags=display="SD Card";storage;wipeingui;removable
+/usb-otg         vfat   /dev/block/sda1       /dev/block/sda       flags=display="USB-OTG";storage;wipeingui;removable

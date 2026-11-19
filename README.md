@@ -42,24 +42,38 @@ device/samsung/a20/
 ├── vendorsetup.sh
 ├── recovery.fstab
 ├── mkboot/
-│   ├── bootimg.mk        # اضافه‌کردن مارکر SEANDROIDENFORCE
-│   └── mkbootimg.py      # اسکریپت mkbootimg قابل‌حمل/پچ‌شده (Python 3)
+│   ├── bootimg.mk        # مارکر SEANDROIDENFORCE + فشردهسازی LZMA preset 9
+│   └── mkbootimg.py      # اسکریپت mkbootimg قابلحمل/پچشده (Python 3)
 ├── prebuilt/
-│   ├── Image             # کرنل استوک استخراج‌شده از boot.img کاربر
-│   └── dtbo.img          # dtbo واقعی/trim شده از dtbo.img کاربر
+│   ├── Image             # کرنل hypersonic از ریکاوری سالم 3.7.x (غیر استوک)
+│   └── dtbo.img          # dtbo متناظر همان ریکاوری سالم (291594 بایت)
+├── system.prop           # پراپرتیها (رشتههای دارای فاصله فقط در اینجا امناند)
 └── recovery/
     └── root/
         ├── init.recovery.exynos7884B.rc
         ├── init.recovery.usb.rc
-        └── etc/
-            └── twrp.flags
+        ├── ueventd.rc
+        ├── ueventd.samsungexynos7884B.rc
+        ├── etc/
+        │   ├── twrp.flags
+        │   └── recovery.fstab
+        └── system/
+            ├── bin/{resetprop,fastbootd}
+            └── lib64/... (libresetprop, fastboot HAL)
 ```
 
-- `prebuilt/Image` و `prebuilt/dtbo.img` مستقیماً از فایل‌های ارسالی شما گرفته شده‌اند (نه از درخت‌های مرجع).
-- `mkboot/bootimg.mk` بعد از ساخت ایمیج، مارکر `SEANDROIDENFORCE` را به انتهای ایمیج اضافه می‌کند (موردنیاز بوت‌لودر سامسونگ).
-- `mkboot/mkbootimg.py` نسخه AOSP است که برای اجرای صحیح در Python 3 پچ شده و از `--recovery_dtbo` پشتیبانی می‌کند.
+- `prebuilt/Image` و `prebuilt/dtbo.img` از یک ریکاوری سالم TWRP 3.7.x برای a20 گرفته شدهاند؛ کرنل/dtbo استوک فریمور رابط TWRP را بالا نمیآورد، بنابراین فقط از این جفت استفاده کنید.
+- `mkboot/bootimg.mk` مارکر `SEANDROIDENFORCE` را اضافه میکند و فشردهسازی رامدیسک را به `LZMA -9` تغییر میدهد.
+- `mkboot/mkbootimg.py` نسخه AOSP است که برای اجرای صحیح در Python 3 پچ شده و از `--recovery_dtbo` پشتیبانی میکند.
 
 ## محدودیت‌ها / نکات مهم
+
+### علت ریبوت در بیلدTWRP 12.1 قبلی (تشخیص دادهشده)
+
+- رامدیسک فشردهشدهی قبلی ۲۰٫۲MB (gzip) بود. بوتلودر/کرنل 4.4 این دستگاه رامدیسکی بزرگتر از حدود ۱۶MB را رد میکند و گوشی روی لوگوی سامسونگ ریبوت میشود. رامدیسک ۱۶٫۲MB قدیمی و رامدیسک ۱۰٫۸MB LZMA ریکاوری سالم بالا میآیند؛ تست کنترل ۲۰٫۱MB (همان رامدیسک سالم + ۴MB فایل اضافی) دقیقاً ریبوت شد.
+- با `BOARD_RAMDISK_USE_LZMA := true` و `lzma -9 -f -c` رامدیسک به حدود ۱۳MB میرسد و ایمیج بالا میآید (تست موفق `testF`).
+- پراپرتی `ro.display.series=Samsung Galaxy A20` وقتی در `PRODUCT_PROPERTY_OVERRIDES` مینوشتهشده، در `prop.default` به سه خط «Samsung» / «Galaxy» / «A20» تبدیل میشد. اکنون در `system.prop` قرار دارد.
+- کتابخانهی `libresetprop.so`، باینری `resetprop`، `ueventd.rc` و `/etc/recovery.fstab` قبلاً در رامدیسک نبودند؛ اکنون از طریق `recovery/root/` اضافه شدهاند.
 
 - **رمزگشایی دیتا (FBE/crypto) در TWRP فعال نیست.** پیاده‌سازی FBE سامسونگ روی Android 11 با TWRP پیچیده/ناسازگار است؛ بنابراین `/data` قابل decrypt شدن در ریکاوری نیست (فرمت دیتا ممکن است). قبل از هر کاری بکاپ بگیرید.
 - این درخت **مخصوص SM-A205F** ساخته شده است (assert: `a20`, `a20dd`, `SM-A205F`). برای مدل‌های دیگر (مثلاً A205FN/… یا ریویژن‌های متفاوت) بدون بررسی استفاده نکنید.

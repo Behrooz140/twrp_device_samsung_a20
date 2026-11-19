@@ -40,11 +40,7 @@ PRODUCT_BUILD_PROP_OVERRIDES += \
 
 BUILD_FINGERPRINT := samsung/a20dd/a20:11/RP1A.200720.012/A205FXXSBCWC4:user/release-keys
 
-# Properties TWRP / recovery needs at runtime.
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.display.series=Samsung Galaxy A20 \
-    ro.product.board=universal7884B \
-    ro.board.platform=universal7884B \
-    ro.hardware=exynos7884B \
-    sys.usb.controller=13600000.dwc3 \
-    ro.boot.bootdevice=13500000.dwmmc0
+# Properties TWRP / recovery needs at runtime live in system.prop.
+# Do NOT put values containing spaces in PRODUCT_PROPERTY_OVERRIDES: the build
+# writes them into prop.default one word per line, which corrupts the property
+# (this is exactly what happened to ro.display.series).
