@@ -53,12 +53,15 @@ OVERRIDE_TARGET_FLATTEN_APEX := true
 # ---------------------------------------------------------------------------
 # Bootloader / platform
 # ---------------------------------------------------------------------------
-TARGET_BOOTLOADER_BOARD_NAME := universal7884B
+# These feed ro.product.board / ro.board.platform in system/build.prop via
+# core/main.mk. Keep them at exynos7884B (the value used by the known-good
+# TWRP 3.7.x recovery) and do NOT repeat those properties in system.prop.
+TARGET_BOOTLOADER_BOARD_NAME := exynos7884B
 TARGET_NO_BOOTLOADER := true
 TARGET_NO_RADIOIMAGE := true
 
 BOARD_VENDOR := samsung
-TARGET_BOARD_PLATFORM := universal7884B
+TARGET_BOARD_PLATFORM := exynos7884B
 TARGET_BOARD_PLATFORM_GPU := mali-g71
 TARGET_SOC := exynos7884B
 

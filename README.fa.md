@@ -75,6 +75,7 @@ device/samsung/a20/
 - رامدیسک فشردهشدهی قبلی ۲۰٫۲MB (gzip) بود. بوتلودر/کرنل 4.4 این دستگاه رامدیسکی بزرگتر از حدود ۱۶MB را رد میکند و گوشی روی لوگوی سامسونگ ریبوت میشود. رامدیسک ۱۶٫۲MB قدیمی و رامدیسک ۱۰٫۸MB LZMA ریکاوری سالم بالا میآیند؛ تست کنترل ۲۰٫۱MB (همان رامدیسک سالم + ۴MB فایل اضافی) دقیقاً ریبوت شد.
 - با `BOARD_RAMDISK_USE_LZMA := true` و `lzma -9 -f -c` رامدیسک به حدود ۱۳MB میرسد و ایمیج بالا میآید (تست موفق `testF`).
 - پراپرتی `ro.display.series=Samsung Galaxy A20` وقتی در `PRODUCT_PROPERTY_OVERRIDES` مینوشتهشده، در `prop.default` به سه خط «Samsung» / «Galaxy» / «A20» تبدیل میشد. اکنون در `system.prop` قرار دارد.
+- پراپرتیهای `ro.product.board` و `ro.board.platform` توسط `core/main.mk` از `TARGET_BOOTLOADER_BOARD_NAME` و `TARGET_BOARD_PLATFORM` در `BoardConfig.mk` ساخته میشوند؛ نباید آنها را دوباره در `system.prop` نوشت، چون بیلد با خطای `found duplicate sysprop assignments` متوقف میشود.
 - کتابخانهی `libresetprop.so`، باینری `resetprop`، `ueventd.rc` و `/etc/recovery.fstab` قبلاً در رامدیسک نبودند؛ اکنون از طریق `recovery/root/` اضافه شدهاند.
 
 - **رمزگشایی دیتا (FBE/crypto) در TWRP فعال نیست.** پیاده‌سازی FBE سامسونگ روی Android 11 با TWRP پیچیده/ناسازگار است؛ بنابراین `/data` قابل decrypt شدن در ریکاوری نیست (فرمت دیتا ممکن است). قبل از هر کاری بکاپ بگیرید.

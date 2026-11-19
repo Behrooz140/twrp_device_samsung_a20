@@ -92,6 +92,10 @@ Key points:
 - Properties containing spaces must live in `system.prop`. Putting
   `ro.display.series=Samsung Galaxy A20` in `PRODUCT_PROPERTY_OVERRIDES` splits
   it into three invalid lines in `prop.default`.
+- `ro.product.board` and `ro.board.platform` are generated automatically by
+  `core/main.mk` from `TARGET_BOOTLOADER_BOARD_NAME` and `TARGET_BOARD_PLATFORM`
+  in `BoardConfig.mk`. Do **not** repeat them in `system.prop`: the build fails
+  with `error: found duplicate sysprop assignments`.
 - `libresetprop.so`, `resetprop`, the `ueventd` rc files and
   `/etc/recovery.fstab` are supplied through `recovery/root/`; without them
   TWRP either fails to load its fstab or cannot resolve its libraries.
