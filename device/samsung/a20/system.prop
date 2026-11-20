@@ -5,6 +5,5 @@ ro.display.series=Samsung Galaxy A20
 # ro.product.board and ro.board.platform are generated automatically from
 # TARGET_BOOTLOADER_BOARD_NAME / TARGET_BOARD_PLATFORM in BoardConfig.mk.
 # Do not add them here: post_process_props rejects duplicate assignments.
-ro.hardware=exynos7884B
 sys.usb.controller=13600000.dwc3
 ro.boot.bootdevice=13500000.dwmmc0

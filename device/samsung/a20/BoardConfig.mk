@@ -160,6 +160,9 @@ BOARD_VNDK_VERSION := current
 # Recovery / fstab
 # ---------------------------------------------------------------------------
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery.fstab
+# Keep this recovery.fstab authoritative. The vendor fstab describes /data as
+# f2fs and adds f2fs-only mount options, but this device formats it as ext4.
+TW_SKIP_ADDITIONAL_FSTAB := true
 TARGET_RECOVERY_PIXEL_FORMAT := "ABGR_8888"
 
 # ---------------------------------------------------------------------------
