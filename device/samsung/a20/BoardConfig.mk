@@ -179,6 +179,9 @@ TW_SKIP_COMPATIBILITY_CHECK := true
 TW_BRIGHTNESS_PATH := "/sys/class/backlight/panel/brightness"
 TW_MAX_BRIGHTNESS := 255
 TW_DEFAULT_BRIGHTNESS := 150
+
+# Battery
+TW_CUSTOM_BATTERY_PATH := "/sys/class/power_supply/battery/capacity"
 # Status-bar / notch compensation, tune if the UI is shifted
 TW_Y_OFFSET := 80
 TW_H_OFFSET := -80
