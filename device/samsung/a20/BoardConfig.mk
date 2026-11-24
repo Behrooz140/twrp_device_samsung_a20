@@ -181,7 +181,9 @@ TW_MAX_BRIGHTNESS := 255
 TW_DEFAULT_BRIGHTNESS := 150
 
 # Battery
-TW_CUSTOM_BATTERY_PATH := "/sys/class/power_supply/battery/capacity"
+TW_USE_LEGACY_BATTERY_SERVICES := true
+TW_CUSTOM_BATTERY_PATH := "/sys/class/power_supply/battery"
+TW_BATTERY_SYSFS_WAIT_SECONDS := 5
 # Status-bar / notch compensation, tune if the UI is shifted
 TW_Y_OFFSET := 80
 TW_H_OFFSET := -80
