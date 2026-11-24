@@ -1,0 +1,45 @@
+#!/system/bin/sh
+
+TS=$(date +%Y%m%d_%H%M%S 2>/dev/null || echo unknown)
+OUT="/cache/twrp_logs/$TS"
+
+mkdir -p "$OUT" 2>/dev/null || {
+    echo "Failed to create $OUT"
+    echo "Try mounting /cache first."
+    exit 1
+}
+
+echo "Collecting TWRP logs..."
+echo "timestamp: $TS" > "$OUT/meta.txt" 2>&1
+uname -a >> "$OUT/meta.txt" 2>&1
+getprop ro.twrp.version >> "$OUT/meta.txt" 2>&1
+getprop ro.build.display.id >> "$OUT/meta.txt" 2>&1
+
+dmesg > "$OUT/dmesg.log" 2>&1
+[ -f /tmp/recovery.log ] && cp /tmp/recovery.log "$OUT/recovery.log" 2>&1
+[ -d /cache/recovery ] && cp -a /cache/recovery "$OUT/cache_recovery" 2>&1
+[ -f /proc/last_kmsg ] && cp /proc/last_kmsg "$OUT/last_kmsg.log" 2>&1
+[ -d /sys/fs/pstore ] && cp -a /sys/fs/pstore "$OUT/pstore" 2>&1
+
+ps -A > "$OUT/ps.txt" 2>&1
+mount > "$OUT/mount.txt" 2>&1
+getprop > "$OUT/getprop.txt" 2>&1
+ls -la /dev/block/by-name > "$OUT/by-name.txt" 2>&1
+df -h > "$OUT/df.txt" 2>&1
+ls -laR /sys/class/power_supply > "$OUT/power_supply_ls.txt" 2>&1
+
+{
+    for p in /sys/class/power_supply/*; do
+        echo "=== $p ==="
+        cat "$p/uevent" 2>/dev/null
+        echo
+    done
+} > "$OUT/power_supply.txt" 2>&1
+
+sync
+
+echo ""
+echo "Logs saved to: $OUT"
+echo "After reboot to system, pull with root/adb:"
+echo "  adb pull $OUT"
+echo "Or check /cache/twrp_logs/ from system."
