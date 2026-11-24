@@ -1,7 +1,5 @@
 # TWRP for Galaxy A20 (SM-A205F / `a20`)
 
-> 🇮🇷 [نسخهٔ فارسی](README.fa.md)
-
 Recovery-only TWRP device tree for the Galaxy A20 (Exynos 7884B, Android 11 firmware base). Tested on device: boots into TWRP 12.1.
 
 ⚠️ **Flashing a custom recovery can wipe data or brick the device. Back up first.**
