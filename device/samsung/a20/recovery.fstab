@@ -18,12 +18,10 @@
 /boot            emmc   /dev/block/by-name/boot        flags=display="Boot";backup=1;flashimg
 /recovery        emmc   /dev/block/by-name/recovery    flags=display="Recovery";backup=1;flashimg
 /modem           emmc   /dev/block/by-name/radio       flags=display="Modem";backup=0;flashimg
-/modem2          emmc   /dev/block/by-name/radio2      flags=display="Modem2";backup=0;flashimg
 /misc            emmc   /dev/block/by-name/misc        flags=display="Misc";backup=0;flashimg
 /dtb             emmc   /dev/block/by-name/dtb         flags=display="DTB";backup=0;flashimg
 /dtbo            emmc   /dev/block/by-name/dtbo        flags=display="DTBO";backup=0;flashimg
-/vbmeta_samsung  emmc   /dev/block/by-name/vbmeta_samsung flags=display="VBMeta (Samsung)";backup=0;flashimg
-/vbmeta_system   emmc   /dev/block/by-name/vbmeta_system  flags=display="VBMeta (System)";backup=0;flashimg
+/vbmeta          emmc   /dev/block/by-name/vbmeta      flags=display="VBMeta";backup=0;flashimg
 /cp_debug        emmc   /dev/block/by-name/cp_debug    flags=display="CP Debug";backup=0;flashimg
 
 # --- removable storage ------------------------------------------------------
